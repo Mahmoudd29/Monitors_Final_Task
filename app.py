@@ -12,16 +12,9 @@ def receive_data():
         data = request.json
         app.logger.info(f"Received data: {data}")
         
-        # Check if heart rate is greater than 100
-        heart_rate = data.get('heart_rate', 0)
-        if heart_rate > 100:
-            flag = True
-        else:
-            flag = False
-        
         # Perform any necessary processing with the data here
         
-        return jsonify({"status": "received", "data": data, "flag": flag})  # Return the received data and flag in the response
+        return jsonify({"status": "received", "data": data})
     except Exception as e:
         app.logger.error(f"Error processing request: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
