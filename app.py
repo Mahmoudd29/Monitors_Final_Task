@@ -1,21 +1,16 @@
 from flask import Flask, request, jsonify
-from collections import defaultdict
 
 app = Flask(__name__)
-data_store = defaultdict(list)
 
 @app.route('/data', methods=['POST'])
 def receive_data():
     data = request.json
-    client_id = data['client_id']
-    data_store[client_id].append(data)
-    if len(data_store[client_id]) > 100:
-        data_store[client_id].pop(0)
+    print(f"Received data: {data}")
     return jsonify({"status": "received"})
 
-@app.route('/data', methods=['GET'])
-def get_data():
-    return jsonify(data_store)
+@app.route('/', methods=['GET'])
+def index():
+    return "Hello, this is your Flask app running on Vercel!"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
