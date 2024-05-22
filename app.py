@@ -37,6 +37,8 @@ def get_client_data(client_id):
     try:
         # Check if data exists for the client
         if client_id in client_data:
+            print(f"Client {client_id}: Data retrieved successfully")
+
             return jsonify({"status": "success", "data": client_data[client_id]})
         else:
             return jsonify({"status": "error", "message": f"No data found for client with ID: {client_id}"}), 404
