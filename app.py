@@ -2,15 +2,20 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/data', methods=['POST'])
-def receive_data():
-    data = request.json
-    print(f"Received data: {data}")
-    return jsonify({"status": "received"})
+# Store data for demonstration purposes
+data_storage = []
 
-@app.route('/', methods=['GET'])
-def index():
-    return "Hello, this is your Flask app running on Vercel!"
+@app.route('/data', methods=['POST', 'GET'])
+def data():
+    if request.method == 'POST':
+        data = request.get_json()
+        data_storage.append(data)
+        return jsonify({'status': 'received'}), 200
+    elif request.method == 'GET':
+        if data_storage:
+            return jsonify(data_storage[-1]), 200
+        else:
+            return jsonify({'message': 'No data available'}), 200
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
