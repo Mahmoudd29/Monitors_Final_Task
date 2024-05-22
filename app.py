@@ -7,7 +7,11 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Dictionary to store data for each client
-client_data = {}
+client_data = {
+    '1': {'client_id': '1', 'heart_rate': 80, 'timestamp': 1234567890},  # Example data for client 1
+    '2': {'client_id': '2', 'heart_rate': 75, 'timestamp': 1234567890},  # Example data for client 2
+    '3': {'client_id': '3', 'heart_rate': 85, 'timestamp': 1234567890},  # Example data for client 3
+}
 
 @app.route('/data', methods=['POST'])
 def receive_data():
